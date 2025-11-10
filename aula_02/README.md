@@ -8,8 +8,8 @@ Esta pasta contém scripts e demos práticos para entender conceitos fundamentai
 aula_02/
 └── DEMO_1/              # Demonstrações de Kafka
     ├── generate_1m_events.py    # Comparação JSON vs Avro
-    ├── consumer_group_demo.py  # Consumer Groups e Rebalancing
-    ├── offset_demo.py          # Offsets e Seek
+    ├── simple_producer.py       # Produtor simples (JSON)
+    ├── simple_producer_json.py  # Produtor simples (JSON + schema via REST)
     ├── schema.avsc             # Schema Avro
     ├── environment.yml         # Ambiente conda
     └── README.md               # Documentação detalhada
@@ -39,15 +39,8 @@ Antes de executar os scripts, certifique-se de que:
 
 Gera 1 milhão de eventos e compara o tamanho de armazenamento entre JSON e Avro.
 
-### 2. Consumer Groups
-**Arquivo**: `DEMO_1/consumer_group_demo.py`
-
-Demonstra como múltiplos consumers dividem o trabalho e como funciona o rebalancing.
-
-### 3. Offsets
-**Arquivo**: `DEMO_1/offset_demo.py`
-
-Demonstra como funcionam offsets e como controlar de onde começar a ler mensagens.
+### 2. Produtores simples
+**Arquivos**: `DEMO_1/simple_producer.py`, `DEMO_1/simple_producer_json.py`
 
 ## Documentação Detalhada
 

@@ -9,7 +9,7 @@ Você verá como múltiplos consumidores dividem o trabalho e como o **Lag** ind
 ```bash
 docker exec kafka kafka-topics --create \
     --topic demo-groups \
-    --bootstrap-server localhost:9092 \
+    --bootstrap-server kafka:29092 \
     --partitions 4
 ```
 

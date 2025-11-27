@@ -13,7 +13,7 @@ Esta demo ensina como usar **Schemas** para garantir a integridade dos dados e e
 ```bash
 docker exec kafka kafka-topics --create \
     --topic demo-avro \
-    --bootstrap-server localhost:9092 \
+    --bootstrap-server kafka:29092 \
     --partitions 1
 ```
 

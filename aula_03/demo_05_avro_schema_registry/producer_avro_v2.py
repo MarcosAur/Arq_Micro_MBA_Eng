@@ -3,7 +3,7 @@ from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.schema_registry.avro import AvroSerializer
 from confluent_kafka.serialization import SerializationContext, MessageField
 
-schema_registry_conf = {'url': 'http://localhost:8081'}
+schema_registry_conf = {'url': 'http://localhost:8082'}
 schema_registry_client = SchemaRegistryClient(schema_registry_conf)
 
 with open("schemas/user_v2.avsc") as f:

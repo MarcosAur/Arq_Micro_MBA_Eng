@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "Consumindo para verificar distribuição..."
 docker exec kafka kafka-console-consumer \
-    --bootstrap-server localhost:9092 \
+    --bootstrap-server kafka:29092 \
     --topic demo-producers \
     --from-beginning \
     --property print.key=true \

@@ -12,7 +12,7 @@ Esta demo ilustra a diferença fundamental entre produzir mensagens com e sem ch
 ```bash
 docker exec kafka kafka-topics --create \
     --topic demo-producers \
-    --bootstrap-server localhost:9092 \
+    --bootstrap-server kafka:29092 \
     --partitions 4 \
     --replication-factor 1
 ```

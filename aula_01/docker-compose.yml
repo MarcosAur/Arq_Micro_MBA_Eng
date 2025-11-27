@@ -124,16 +124,6 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092,kafka-2:29093,kafka-3:29094
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
 
-  postgres:
-    image: postgres:15-alpine
-    container_name: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgrespassword
-      POSTGRES_DB: db_exemplos
-    command: ["postgres", "-c", "wal_level=logical"]
 
 networks:
   default:

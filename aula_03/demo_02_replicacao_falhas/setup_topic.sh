@@ -2,7 +2,7 @@
 echo "Criando tópico 'demo-replicacao' com alta disponibilidade..."
 docker exec kafka kafka-topics --create \
     --topic demo-replicacao \
-    --bootstrap-server localhost:9092 \
+    --bootstrap-server kafka:29092 \
     --partitions 3 \
     --replication-factor 3 \
     --config min.insync.replicas=2

@@ -3,7 +3,7 @@ from confluent_kafka.schema_registry import SchemaRegistryClient
 from confluent_kafka.schema_registry.avro import AvroDeserializer
 from confluent_kafka.serialization import SerializationContext, MessageField
 
-schema_registry_conf = {'url': 'http://localhost:8081'}
+schema_registry_conf = {'url': 'http://localhost:8082'}
 schema_registry_client = SchemaRegistryClient(schema_registry_conf)
 
 # O Deserializer baixa o schema pelo ID que vem na mensagem

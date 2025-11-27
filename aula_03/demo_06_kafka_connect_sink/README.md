@@ -24,11 +24,21 @@ cd ../../aula_01
 docker compose up -d
 ```
 
-2. Aguarde ~30 segundos para o Kafka Connect instalar o plugin JDBC.
+2. Aguarde ~60 segundos para o Kafka Connect instalar o plugin JDBC e inicializar completamente.
+
+3. **IMPORTANTE:** Esta demo usa **Avro com Schema Registry**. Certifique-se que o Schema Registry está rodando na porta 8082.
 
 ## Passo a Passo
 
 ### 1. Configurar o Ambiente
+
+**IMPORTANTE:** Antes de executar o setup, certifique-se que o tópico está limpo (sem mensagens antigas em JSON):
+
+```bash
+# Se o tópico já existe com mensagens antigas, delete e recrie:
+docker exec kafka kafka-topics --delete --topic demo-orders --bootstrap-server kafka:29092
+docker exec kafka kafka-topics --create --topic demo-orders --bootstrap-server kafka:29092 --partitions 3 --replication-factor 3
+```
 
 Execute o script de setup que cria o tópico e registra o conector:
 
@@ -37,9 +47,9 @@ bash setup.sh
 ```
 
 **O que ele faz:**
-- Cria o tópico `demo-orders` com 3 partições
+- Cria o tópico `demo-orders` com 3 partições e RF=3
 - Aguarda o Kafka Connect estar pronto
-- Registra o JDBC Sink Connector com configuração de UPSERT
+- Registra o JDBC Sink Connector com configuração de UPSERT e AvroConverter
 - Mostra o status do conector
 
 ### 2. Iniciar o Gerador de Pedidos
@@ -52,8 +62,9 @@ python order_generator.py
 
 **O que acontece:**
 - Gera 1 pedido a cada 2 segundos usando Faker
+- Cada pedido é **serializado com Avro** e registrado no Schema Registry
 - Cada pedido tem: ID, nome do cliente, produto, valor, status e timestamps
-- Os pedidos são enviados para o tópico `demo-orders`
+- Os pedidos são enviados para o tópico `demo-orders` no formato Avro
 
 ### 3. Verificar os Dados no Postgres
 
@@ -84,9 +95,12 @@ O modo UPSERT significa que se você enviar um pedido com um `order_id` que já 
 O arquivo `connector-config.json` define:
 
 - **insert.mode: "upsert"** - Faz UPDATE se a chave primária já existir
+- **pk.mode: "record_value"** - Usa o valor do campo como chave primária
 - **pk.fields: "order_id"** - Define qual campo é a chave primária
 - **auto.create: true** - Cria a tabela automaticamente se não existir
 - **auto.evolve: true** - Adiciona colunas automaticamente se o schema mudar
+- **value.converter: "io.confluent.connect.avro.AvroConverter"** - Usa Avro para deserialização
+- **value.converter.schema.registry.url** - URL do Schema Registry (dentro da rede Docker)
 
 ## Limpeza
 

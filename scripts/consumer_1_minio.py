@@ -2,8 +2,6 @@ from kafka import KafkaConsumer
 import boto3
 from datetime import datetime
 import json
-from kafka import KafkaAdminClient
-
 
 KAFKA_BOOTSTRAP = "localhost:9094"
 KAFKA_TOPIC = "pgserver.public.users"
@@ -23,11 +21,10 @@ minio_client = boto3.client(
     region_name="us-east-1"
 )
 
-print("Consumindo mensagens do tópico...")
+print("Consumindo mensagens do topico...")
 
 for msg in consumer:
     try:
-        print('a')
         raw_value = msg.value
     
         filename = f"user_{datetime.utcnow().timestamp()}.txt"
@@ -45,7 +42,7 @@ for msg in consumer:
             ContentType="text/plain"
         )
         
-        print(f"✔ Arquivo enviado: {filename}")
+        print(f"Arquivo enviado: {filename}")
 
     except Exception as e:
         print(f"Erro ao processar mensagem: {e}")
